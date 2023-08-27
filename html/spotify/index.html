@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotify Web Playback SDK Quick Start</title>
+</head>
+<body>
+    <h1>Spotify Web Playback SDK Quick Start</h1>
+    <button id="togglePlay">Toggle Play</button>
+    <div hidden=true id="token">
+      <h5>You have not set your token.</h5>
+      Please load "http://developer.spotify.com/token-button" in a browser and then paste it below and press "Set"
+      <input id="tkn">
+      <button id="sndtkn">Save</button>
+    </div>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+      document.getElementById('sndtkn').onclick = function() {
+              window.localStorage.token = document.getElementById('tkn').value
+              window.location.reload()
+      };
+      if(window.localStorage.token == null){
+            document.getElementById('token').hidden = false
+          }
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = '[My access token]';
+            const player = new Spotify.Player({
+                name: 'Web Playback SDK Quick Start Player',
+                getOAuthToken: cb => { cb(token); },
+                volume: 0.5
+            });
+
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with Device ID', device_id);
+            });
+
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+                console.log('Device ID has gone offline', device_id);
+            });
+
+            player.addListener('initialization_error', ({ message }) => {
+                console.error(message);
+            });
+
+            player.addListener('authentication_error', ({ message }) => {
+                console.error(message);
+            });
+
+            player.addListener('account_error', ({ message }) => {
+                console.error(message);
+            });
+
+            document.getElementById('togglePlay').onclick = function() {
+              player.togglePlay();
+            };
+
+            player.connect();
+        }
+    </script>
+</body>
+</html>
