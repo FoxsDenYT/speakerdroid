@@ -32,24 +32,24 @@
 
             // Ready
             player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
+                AppInventor.setWebViewString('Ready with Device ID', device_id);
             });
 
             // Not Ready
             player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
+                AppInventor.setWebViewString('Device ID has gone offline', device_id);
             });
 
             player.addListener('initialization_error', ({ message }) => {
-                console.error(message);
+                AppInventor.setWebViewString(message);
             });
 
             player.addListener('authentication_error', ({ message }) => {
-                console.error(message);
+                AppInventor.setWebViewString(message);
             });
 
             player.addListener('account_error', ({ message }) => {
-                console.error(message);
+                AppInventor.setWebViewString(message);
             });
 
             document.getElementById('togglePlay').onclick = function() {
