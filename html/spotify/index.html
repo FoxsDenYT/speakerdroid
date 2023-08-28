@@ -14,6 +14,14 @@
     </div> -->
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
+        function cons(txt){
+            if(typeof AppInventor !="undefined"){
+                AppInventor.setWebViewString(txt)
+            }
+            else{
+                console.log(txt)
+            }
+        }
       // document.getElementById('sndtkn').onclick = function() {
       //         window.localStorage.token = document.getElementById('tkn').value
       //         window.location.reload()
@@ -32,24 +40,24 @@
 
             // Ready
             player.addListener('ready', ({ device_id }) => {
-                AppInventor.setWebViewString('Ready with Device ID', device_id);
+                cons('Ready with Device ID: ' + device_id);
             });
 
             // Not Ready
             player.addListener('not_ready', ({ device_id }) => {
-                AppInventor.setWebViewString('Device ID has gone offline', device_id);
+                cons('Device ID has gone offline: ' + device_id);
             });
 
             player.addListener('initialization_error', ({ message }) => {
-                AppInventor.setWebViewString(message);
+                cons(message);
             });
 
             player.addListener('authentication_error', ({ message }) => {
-                AppInventor.setWebViewString(message);
+                cons(message);
             });
 
             player.addListener('account_error', ({ message }) => {
-                AppInventor.setWebViewString(message);
+                cons(message);
             });
 
             document.getElementById('togglePlay').onclick = function() {
